@@ -1,0 +1,161 @@
+# This is our default .CodeClimate.yml, broken out by language. Uncomment the
+# sections that apply to your project.
+
+version: "2"
+
+prepare:
+  fetch:
+    # Bandit config file
+    - "<Bandit URL>/.bandit"
+
+    # Rubocop config file
+    - "https://github.com/cyberark/ruby-styleguide/blob/master/rubocop/.rubocop.yml"
+
+plugins:
+# Cross-language plugins
+  duplication: # Looks for similar and identical code blocks
+    enabled: true
+    config:
+      languages:
+# ACTION  Uncomment the languages you use in this repo.
+#        go:
+#        java:
+#        javascript:
+#        php:
+#        python:
+#          python_version: 3  # Leave this line commented if using Python 2
+#        ruby:
+#        swift:
+#        typescript:
+
+  fixme: # Flags any FIXME, TODO, BUG, XXX, HACK comments so they can be fixed
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - TODO
+      - HACK
+      - XXX
+      - BUG
+
+  git-legal:  # Flags checking in of dependencies that violates Legal's allowed licenses
+    # See https://ca-il-confluence.il.cyber-ark.com/display/GRnD/Incorporating+3rd+parties+in+CyberArk+products#/
+    # for information on legal's policies at CyberArk
+    enabled: true
+    config:
+      allow_affero_copyleft: false
+      allow_strong_copyleft: false
+
+  markdownlint: # Linter for correct markdown in our documentation files
+    enabled: true
+
+# Language-specific sets of plugins - uncomment each section for the languages you use
+
+# Commonly-used languages
+
+# Go
+#  gofmt:
+#    enabled: true
+#  golint:
+#    enabled: true
+#  govet:
+#    enabled: true
+
+# Ruby
+#  bundler-audit:
+#    enabled: true
+#  flog:
+#    enabled: true
+#  reek:
+#    enabled: true
+#  rubocop:
+#    enabled: true
+
+# Rails - uncomment all Ruby plugins above plus:
+#  brakeman:
+#    enabled: true
+
+# Shell scripts
+#  shellcheck:
+#   enabled: true
+
+# Other languages
+
+# Chef
+#  foodcritic:
+#    enabled: true
+
+# CoffeeScript
+#  coffeelint:
+#    enabled: true
+
+# CSS
+#  csslint:
+#    enabled: true
+
+# Groovy
+#  codenarc:
+#    enabled: true
+
+# Java
+#  checkstyle:
+#    enabled: true
+#  pmd:
+#    enabled: true
+#  sonarjava:
+#    enabled: true
+#    config:
+#      sonar.java.source: "7" # ACTION set this to the major version of Java you're using
+
+# JavaScript - requires an eslintrc to be created and added to project
+#  eslint:
+#    enabled: true
+#    channel: "eslint-6"
+
+# Node.js
+#  nodesecurity:
+#    enabled: true
+
+# PHP
+#  phan:
+#    enabled: true
+#    config:
+#      file_extensions: "php"
+#  phpcodesniffer:
+#    enabled: true
+#    config:
+#      file_extensions: "php,inc,lib"
+#      standards: "PSR1,PSR2,WordPress,WordPress-Core,WordPress-Extra"
+#  phpmd:
+#    enabled: true
+#    config:
+#      file_extensions: "php,inc,lib"
+#      rulesets: "cleancode,codesize,controversial,design,naming,unusedcode"
+#  sonarphp:
+#    enabled: true
+
+# Python 2
+#  bandit:
+#    enabled: true
+#  pep8:
+#    enabled: true
+#  radon:
+#    enabled: true
+#    config:
+#      python_version: 2
+#  sonarpython:
+#    enabled: true
+
+# Python 3
+#  bandit:
+#    enabled: true
+#  pep8:
+#    enabled: true
+#  radon:
+#    enabled: true
+#    config:
+#  sonarpython:
+#    enabled: true
+
+# List any files/folders to exclude from checking. Wildcards accepted.
+exclude_patterns:
