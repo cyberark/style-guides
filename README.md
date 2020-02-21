@@ -1,2 +1,4 @@
-# style-guides
-Cyberark's language style guides
+# Cyberark Style Guides
+
+## Languages
+- [Ruby](/ruby/Readme.md)
