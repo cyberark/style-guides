@@ -1,11 +1,14 @@
 # This is our default .CodeClimate.yml, broken out by language. Uncomment the
-# sections that apply to your project.
+# sections at the bottom that apply to your project. ACTION comments indicate
+# places where config might need to be tweaked.
 
 version: "2"
 
-# non-impacting change
 plugins:
-# Cross-language plugins - leave uncommented
+
+# ---------------
+# Cross-language plugins. Should always be on.
+
   duplication: # Looks for similar and identical code blocks
     enabled: true
     config:
@@ -15,7 +18,7 @@ plugins:
         javascript:
         php:
         python:
-#          python_version: 3  # Leave this line commented if using Python 2
+          python_version: 3  # ACTION Comment this out if using Python 2
         ruby:
         swift:
         typescript:
@@ -30,11 +33,13 @@ plugins:
       - XXX
       - BUG
 
-  markdownlint: # Linter for correct markdown in our documentation files
-    enabled: true
+# ---------------
+# Commonly-used languages - run time is minimal and all of these will work
+# whether files of that language are found or not. In general, leave uncommented
 
-# Commonly-used languages - comment out unused languages for faster performance
-# but all of these can be run even if no files of that language are in the repo
+# Markdown
+  markdownlint:
+    enabled: true
 
 # Go
   gofmt:
@@ -51,13 +56,19 @@ plugins:
     enabled: true
   rubocop:
     enabled: true
-    channel: rubocop-0-79
+    channel: rubocop-0-79 # As of March 10, 2020, rubocop 0.80.1 is the latest
+                          # However, it does not work with CodeClimate - throws
+                          # an Invalid JSON error.
+  # ACTION uncomment bundler-audit below if using Gemfile/Gemfile.lock
+  # ACTION uncomment brakeman below if using Rails
 
 # Shell scripts
   shellcheck:
    enabled: true
 
-# Other languages
+# ---------------
+# Other languages - will work with or without language files present. Again,
+# runtime is minimal, so OK to leave uncommented.
 
 # CoffeeScript
   coffeelint:
@@ -77,11 +88,14 @@ plugins:
   sonar-java:
     enabled: true
     config:
-      sonar.java.source: "7" # ACTION set this to the major version of Java you're using
+      sonar.java.source: "7" # ACTION set this to the major version of Java used
+  # ACTION uncomment checkstyle below if Java code exists in repo
 
 # Node.js
   nodesecurity:
     enabled: true
+  # ACTION uncomment eslint below if JavaScript already exists and .eslintrc
+  # file exists in repo
 
 # PHP
   phan:
@@ -92,6 +106,7 @@ plugins:
     enabled: true
     config:
       file_extensions: "php,inc,lib"
+      # Using Wordpress standards as our one PHP repo is a Wordpress theme
       standards: "PSR1,PSR2,WordPress,WordPress-Core,WordPress-Extra"
   phpmd:
     enabled: true
@@ -101,55 +116,46 @@ plugins:
   sonar-php:
     enabled: true
 
-# Python 2
+# Python
   bandit:
     enabled: true
   pep8:
     enabled: true
   radon:
     enabled: true
-    config:
-      python_version: 2
+    # config:
+      # python_version: 2 # ACTION Uncomment these 2 lines if using Python 2
   sonar-python:
     enabled: true
 
-# Python 3
-#  bandit:
-#    enabled: true
-#  pep8:
-#    enabled: true
-#  radon:
-#    enabled: true
-#    config:
-#  sonarpython:
-#    enabled: true
-
-
+# ---------------
 # Configuration Required Language specific - these will error and abort the
 # codeclimate run if they are turned on and certain files or configuration are
-# missing
+# missing. Should be commented out unless the project already includes the
+# necessary files that the linter looks at
 
 # Ruby - requires presence of Gemfile and Gemfile.lock
-#  bundler-audit:
-#    enabled: true
+  # bundler-audit:
+  #   enabled: true
 
-# Rails - requires a Rails application
-#  brakeman:
-#    enabled: true
+# Rails - requires detecting a Rails application
+  # brakeman:
+  #   enabled: true
 
-# Chef - requires a cookbook path
-#  foodcritic:
-#    enabled: true
+# Chef - requires detecting a cookbook
+  # foodcritic:
+  #   enabled: true
 
-# Java - might require Java code? Errored
-#  checkstyle:
-#    enabled: true
+# Java - might require Java code? Errored when run without
+  # checkstyle:
+  #   enabled: true
 
 # JavaScript - requires an eslintrc to be created and added to project
-#  eslint:
-#    enabled: true
-#    channel: "eslint-6"
+  # eslint:
+  #   enabled: true
+  #   channel: "eslint-6"
 
-
-# List any files/folders to exclude from checking. Wildcards accepted.
-#exclude_patterns:
+# ---------------
+# List any files/folders to exclude from checking. Wildcards accepted. Leave
+# commented if no files to exclude as an empty array will error
+# exclude_patterns:
